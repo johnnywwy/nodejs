@@ -14,52 +14,24 @@ server.on('request', (request: IncomingMessage, response: ServerResponse) => {
 
   const { pathname, search } = url.parse(path as string, true);
 
-  console.log('object', pathname, search);
+  let fileName = pathname?.substring(1) as string;
+  if (fileName === '') fileName = 'index.html';
+  fs.readFile(p.resolve(publicPath, fileName), (err, data) => {
+    if (err) {
+      if (err.errno === -4058) {
+        response.statusCode = 404
+        response.end('你访问的文件不存在啊啊啊啊');
+      } else {
+        response.statusCode = 500
+        response.end('服务器出错了');
 
+      }
+    } else {
+      // response.writeHead(200, { 'Content-Type': 'text/html' });
+      response.end(data.toString());
+    }
+  })
 
-  switch (pathname) {
-    case '/index.html':
-      fs.readFile(p.resolve(publicPath, 'index.html'), (err, data) => {
-        if (err) {
-          response.writeHead(404, { 'Content-Type': 'text/html' });
-          response.end('404 Not Found');
-        } else {
-          response.writeHead(200, { 'Content-Type': 'text/html' });
-          response.end(data.toString());
-        }
-      })
-      break;
-
-    case '/style.css':
-      fs.readFile(p.resolve(publicPath, 'style.css'), (err, data) => {
-        if (err) {
-          response.writeHead(404, { 'Content-Type': 'text/html' });
-          response.end('404 Not Found');
-        } else {
-          response.writeHead(200, { 'Content-Type': 'text/css; charset=utf-8' });
-          response.end(data.toString());
-        }
-      })
-      break;
-
-    case '/main.js':
-      fs.readFile(p.resolve(publicPath, 'main.js'), (err, data) => {
-        if (err) {
-          response.writeHead(404, { 'Content-Type': 'text/css; charset=utf-8' });
-          response.end('404 Not Found');
-        } else {
-          response.writeHead(200, { 'Content-Type': 'text/javascript; charset=utf-8' });
-          response.end(data.toString());
-        }
-      })
-      break;
-
-    default:
-      response.writeHead(404, { 'Content-Type': 'text/html' });
-      response.end();
-      break;
-
-  }
 })
 
 server.listen(8888, () => {
