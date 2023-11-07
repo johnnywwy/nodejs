@@ -1,0 +1,19 @@
+{
+  "name": "translate",
+  "version": "0.0.1",
+  "description": "",
+  "main": "main.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "tsnd --respawn src/main.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "commander": "11.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "20.8.10"
+  }
+}
