@@ -10,6 +10,7 @@ program.version('0.0.1')
     console.log(word);
     // 翻译函数
     translate(word)
+
   })
   .parse(process.argv);
 

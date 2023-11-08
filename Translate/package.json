@@ -11,7 +11,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "commander": "11.1.0"
+    "commander": "11.1.0",
+    "tencentcloud-sdk-nodejs": "4.0.724"
   },
   "devDependencies": {
     "@types/node": "20.8.10"
